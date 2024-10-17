@@ -7,10 +7,19 @@
 <div id="articles">
   <% @articles.each do |article| %>
     <%= render article %>
-    <p>
-      <%= link_to "Show this article", article %>
+    <p> 
+      <%= link_to "Show this article", article %> 
     </p>
+    <p>
+      <%= button_to "Delete", article_path(article), method: :delete, onclick: "return confirm('Are you sure you want to delete this article?');" %>
+    </p>
+    <p>
+      <%= link_to "Edit this article", edit_article_path(article) %> 
+    </p>
+    
+
   <% end %>
 </div>
 
 <%= link_to "New article", new_article_path %>
+
