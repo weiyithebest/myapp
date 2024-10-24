@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :articles
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -15,7 +14,9 @@ Rails.application.routes.draw do
   # root 'home#myhome'
 
   root "articles#index"
+  resources :articles do
+    resources :comments
+  end
   get "/articles", to: "articles#index"
-  get '/about', to: 'articles#about'
   
 end
