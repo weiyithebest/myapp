@@ -8,10 +8,11 @@ Our blog has <%= Article.public_count %> articles and counting!
       <li>
         <%= article.title %>
         <p><%= article.body %></p>
-        <%= button_to "Delete", article_path(article), method: :delete, data: {
-                    turbo_method: :delete,
-                    turbo_confirm: "Are you sure?" } %>
-        <%= link_to "Show this article", article %> 
+        <%= link_to "Delete", article_path(article), data: {
+                              turbo_method: :delete,
+                              turbo_confirm: "Are you sure?"
+                              } %>
+        <%= link_to 'Show this article', article %> 
         <%= link_to "Edit this article", edit_article_path(article) %> 
         </li>
     <% end %>
