@@ -1,13 +1,15 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
-
+  
   # GET /users or /users.json
   def index
-    @users = User.all
+    @users = User.paginate(page: params[:page], per_page: 5)
   end
 
   # GET /users/1 or /users/1.json
   def show
+    @user = User.find(params[:id])
+    @articles = @user.articles.paginate(page: params[:page], per_page: 5)
   end
 
   # GET /users/new
@@ -38,7 +40,7 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to articles_path, notice: "User was successfully updated." }
+        format.html { redirect_to @user, notice: "User was successfully updated." }
         # redirect_to user_url(@user)
         format.json { render :show, status: :ok, location: @user }
       else
