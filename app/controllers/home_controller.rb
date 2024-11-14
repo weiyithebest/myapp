@@ -1,8 +1,6 @@
 class HomeController < ApplicationController
-    def myhome
-    end
-
-    def about
+   
+    def home
     end
     
 end

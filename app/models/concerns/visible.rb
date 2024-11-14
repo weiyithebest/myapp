@@ -13,7 +13,6 @@ module Visible
     end
   end
 
-
   def archived?
     status == 'archived'
   end

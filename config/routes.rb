@@ -11,12 +11,14 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-  # root 'home#myhome'
-
-  root "articles#index"
+  root 'home#home'
+  get 'home', to: 'home#home' 
+  # root "articles#index"
   resources :articles do
-    resources :comments
+    resources :comments # nested resource
   end
-  get "/articles", to: "articles#index"
-  
+
+  get 'signup', to: 'users#new' # This defines a custom route 
+  resources :users, except: [:new]
+
 end

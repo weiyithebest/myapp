@@ -1,5 +1,5 @@
 <h1><%= @article.title %></h1>
-
+by <%= @article.user.username if @article.user %>
 <p><%= @article.body %></p>
 
 <ul>
