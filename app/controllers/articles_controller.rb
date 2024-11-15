@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
   before_action :set_article, only: %i[ show edit update destroy ]
-  http_basic_authenticate_with name: "dhh", password: "secret", except: [:index, :show]
+  # http_basic_authenticate_with name: "dhh", password: "secret", except: [:index, :show]
   # GET /articles or /articles.json
   def index
     @articles = Article.paginate(page: params[:page], per_page: 5)
@@ -24,10 +24,10 @@ class ArticlesController < ApplicationController
   # POST /articles or /articles.json
   def create
     @article = Article.new(article_params)
-    @article.user = User.first
+    @article.user = current_user
     # @article.user = User.find(params[:id]) 
       if @article.save
-        redirect_to @article, notice: 'Article was successfully created.'
+        redirect_to @article , notice: 'Article was successfully created.'
       else
         render :new, status: :unprocessable_entity
       end
@@ -59,6 +59,6 @@ class ArticlesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def article_params
-      params.require(:article).permit(:title, :body, :status)
+      params.require(:article).permit(:title, :body)
     end
 end
