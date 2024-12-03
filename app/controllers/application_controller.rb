@@ -5,7 +5,6 @@ class ApplicationController < ActionController::Base
   helper_method :current_user, :logged_in?
 
   def current_user
-    # Replace this with however you're finding the logged-in user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
   
@@ -13,6 +12,5 @@ class ApplicationController < ActionController::Base
     !!current_user
   end
 
- 
 
 end

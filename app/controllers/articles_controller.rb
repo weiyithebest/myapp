@@ -8,7 +8,7 @@ class ArticlesController < ApplicationController
 
   # GET /articles/1 or /articles/1.json
   def show
-    @article = Article.find(params[:id])
+
   end
 
   # GET /articles/new
@@ -18,7 +18,7 @@ class ArticlesController < ApplicationController
 
   # GET /articles/1/edit
   def edit
-    @article = Article.find(params[:id])
+
   end
 
   # POST /articles or /articles.json
@@ -35,8 +35,6 @@ class ArticlesController < ApplicationController
 
   # PATCH/PUT /articles/1 or /articles/1.json
   def update
-    @article = Article.find(params[:id])
-
     if @article.update(article_params)
       redirect_to @article, notice: 'Article was successfully updated.'
     else
@@ -46,7 +44,6 @@ class ArticlesController < ApplicationController
 
   # DELETE /articles/1 or /articles/1.json
   def destroy
-    @article = Article.find(params[:id])
     @article.destroy
     redirect_to root_path, status: :see_other
   end
@@ -59,6 +56,13 @@ class ArticlesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def article_params
-      params.require(:article).permit(:title, :body)
+      params.require(:article).permit(:title, :body, category_ids: [])
+    end
+
+    def require_same_user
+      if current_user != @article.user && !current_user.admin?
+        flash[:alert] = "You can only edit or delete your own article"
+        redirect_to @article
+      end
     end
 end
